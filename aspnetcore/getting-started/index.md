@@ -30,7 +30,7 @@ ms.locfileid: "52288644"
 
 ## <a name="prerequisites"></a>전제 조건
 
-* [!INCLUDE [](~/includes/2.1-SDK.md)]를 설치합니다.
+* [!INCLUDE [](~/includes/2.1-SDK.md)]을 설치합니다.
 
 ## <a name="create-a-web-app-project"></a>웹앱 프로젝트 만들기
 
