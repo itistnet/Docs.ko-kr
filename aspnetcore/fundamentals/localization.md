@@ -62,11 +62,11 @@ HTML을 포함하는 리소스에 대해 `IHtmlLocalizer<T>` 구현을 사용합
 
 ## <a name="view-localization"></a>지역화 보기
 
-`IViewLocalizer` 서비스는 [보기](xref:mvc/views/overview)에 대한 지역화된 문자열을 제공합니다. `ViewLocalizer` 클래스는 이 인터페이스를 구현하고 보기 파일 경로에서 리소스 위치를 찾습니다. 다음 코드는 `IViewLocalizer`의 기본 구현을 사용하는 방법을 보여 줍니다.
+`IViewLocalizer` 서비스는 [뷰](xref:mvc/views/overview)에 대한 지역화된 문자열을 제공합니다. `ViewLocalizer` 클래스는 이 인터페이스를 구현하고 뷰 파일 경로에서 리소스 위치를 찾습니다. 다음 코드는 `IViewLocalizer`의 기본 구현을 사용하는 방법을 보여 줍니다.
 
 [!code-cshtml[](localization/sample/Localization/Views/Home/About.cshtml)]
 
-`IViewLocalizer`의 기본 구현은 보기의 파일 이름에 따라 리소스 파일을 찾습니다. 전역 공유 리소스 파일을 사용할 수 있는 옵션이 없습니다. `ViewLocalizer`는 `IHtmlLocalizer`를 사용하여 로컬라이저를 구현하므로 Razor는 지역화된 문자열을 HTML 인코딩하지 않습니다. 리소스 문자열을 매개 변수화할 수 있으며 `IViewLocalizer`는 리소스 문자열이 아닌 매개 변수를 HTML 인코딩합니다. 다음 Razor 표시를 고려합니다.
+`IViewLocalizer`의 기본 구현은 뷰의 파일 이름에 따라 리소스 파일을 찾습니다. 전역 공유 리소스 파일을 사용할 수 있는 옵션이 없습니다. `ViewLocalizer`는 `IHtmlLocalizer`를 사용하여 로컬라이저를 구현하므로 Razor는 지역화된 문자열을 HTML 인코딩하지 않습니다. 리소스 문자열을 매개 변수화할 수 있으며 `IViewLocalizer`는 리소스 문자열이 아닌 매개 변수를 HTML 인코딩합니다. 다음 Razor 구문을 고려합니다.
 
 ```cshtml
 @Localizer["<i>Hello</i> <b>{0}!</b>", UserManager.GetUserName(User)]
@@ -78,11 +78,11 @@ HTML을 포함하는 리소스에 대해 `IHtmlLocalizer<T>` 구현을 사용합
 | ----- | ------ |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b> ` |
 
-렌더링된 보기는 리소스 파일에서 HTML 표시를 포함합니다.
+렌더링된 뷰는 리소스 파일에서 HTML을 포함합니다.
 
 **참고:** 일반적으로 HTML이 아닌 텍스트만 지역화하려고 합니다.
 
-보기에서 공유 리소스 파일을 사용하려면 `IHtmlLocalizer<T>`를 삽입합니다.
+뷰에서 공유 리소스 파일을 사용하려면 `IHtmlLocalizer<T>`를 삽입합니다.
 
 [!code-cshtml[](../fundamentals/localization/sample/Localization/Views/Test/About.cshtml?highlight=5,12)]
 
@@ -129,7 +129,7 @@ ASP.NET Core를 사용하면 두 문화권 값 `SupportedCultures` 및 `Supporte
 
     ![중첩된 바로 가기 메뉴: 솔루션 탐색기에서 바로 가기 메뉴가 리소스에 대해 열려 있습니다. 두 번째 바로 가기 메뉴는 강조 표시된 새 항목 명령을 보여 주는 추가에 대해 열려 있습니다.](localization/_static/newi.png)
 
-2. **설치된 템플릿 검색** 상자에 "리소스"를 입력하고 파일의 이름을 지정합니다.
+2. **설치된 템플릿 검색** 상자에 "resource"를 입력하고 파일의 이름을 지정합니다.
 
     ![새 항목 추가 대화 상자](localization/_static/res.png)
 
@@ -145,7 +145,7 @@ ASP.NET Core를 사용하면 두 문화권 값 `SupportedCultures` 및 `Supporte
 
 리소스의 이름은 해당 클래스의 전체 형식 이름에서 어셈블리 이름을 빼서 지정됩니다. 예를 들어 주 어셈블리가 `LocalizationWebsite.Web.Startup` 클래스에 대해 `LocalizationWebsite.Web.dll`인 프로젝트에서 프랑스어 리소스는 *Startup.fr.resx*로 이름이 지정됩니다. `LocalizationWebsite.Web.Controllers.HomeController` 클래스에 대한 리소스는 *Controllers.HomeController.fr.resx*로 이름이 지정됩니다. 대상 클래스의 네임스페이스가 어셈블리 이름과 동일하지 않은 경우 전체 형식 이름이 필요합니다. 예를 들어 샘플 프로젝트에서 `ExtraNamespace.Tools` 형식에 대한 리소스는 *ExtraNamespace.Tools.fr.resx*로 이름이 지정됩니다.
 
-샘플 프로젝트에서 `ConfigureServices` 메서드는 `ResourcesPath`를 "리소스"로 설정하므로 홈 컨트롤러의 프랑스어 리소스 파일에 대한 프로젝트 상대 경로는 *Resources/Controllers.HomeController.fr.resx*입니다. 또는 폴더를 사용하여 리소스 파일을 구성할 수 있습니다. 홈 컨트롤러의 경우 경로는 *Resources/Controllers/HomeController.fr.resx*입니다. `ResourcesPath` 옵션을 사용하지 않는 경우 *.resx* 파일은 프로젝트 기본 디렉터리로 이동합니다. `HomeController`에 대한 리소스 파일은 *Controllers.HomeController.fr.resx*로 이름이 지정됩니다. 점 또는 경로 명명 규칙을 사용하도록 선택하는 것은 리소스 파일을 구성하려는 방법에 따라 다릅니다.
+샘플 프로젝트에서 `ConfigureServices` 메서드는 `ResourcesPath`를 "Resources"로 설정하므로 홈 컨트롤러의 프랑스어 리소스 파일에 대한 프로젝트 상대 경로는 *Resources/Controllers.HomeController.fr.resx*입니다. 또는 폴더를 사용하여 리소스 파일을 구성할 수 있습니다. 홈 컨트롤러의 경우 경로는 *Resources/Controllers/HomeController.fr.resx*입니다. `ResourcesPath` 옵션을 사용하지 않는 경우 *.resx* 파일은 프로젝트 기본 디렉터리로 이동합니다. `HomeController`에 대한 리소스 파일은 *Controllers.HomeController.fr.resx*로 이름이 지정됩니다. 점 또는 경로 명명 규칙을 사용하도록 선택하는 것은 리소스 파일을 구성하려는 방법에 따라 다릅니다.
 
 | 리소스 이름 | 점 또는 경로 명명 |
 | ------------   | ------------- |
@@ -153,7 +153,7 @@ ASP.NET Core를 사용하면 두 문화권 값 `SupportedCultures` 및 `Supporte
 | Resources/Controllers/HomeController.fr.resx  | Path |
 |    |     |
 
-Razor 보기에서 `@inject IViewLocalizer`를 사용하는 리소스 파일은 유사한 패턴을 따릅니다. 보기에 대한 리소스 파일은 점 이름 지정 또는 경로 이름 지정을 사용하여 이름이 지정될 수 있습니다. Razor 보기 리소스 파일은 연결된 보기 파일의 경로를 모방합니다. `ResourcesPath`를 "리소스"로 설정했다고 가정하면, *Views/Home/About.cshtml* 보기와 연결된 프랑스어 리소스 파일은 다음 중 하나가 될 수 있습니다.
+Razor 뷰에서 `@inject IViewLocalizer`를 사용하는 리소스 파일은 유사한 패턴을 따릅니다. 뷰에 대한 리소스 파일은 점 이름 지정 또는 경로 이름 지정을 사용하여 이름이 지정될 수 있습니다. Razor 보기 리소스 파일은 연결된 보기 파일의 경로를 모방합니다. `ResourcesPath`를 "Resources"로 설정했다고 가정하면, *Views/Home/About.cshtml* 보기와 연결된 프랑스어 리소스 파일은 다음 중 하나가 될 수 있습니다.
 
 * Resources/Views/Home/About.fr.resx
 
